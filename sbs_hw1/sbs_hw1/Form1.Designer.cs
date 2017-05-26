@@ -146,9 +146,9 @@
             // result
             // 
             this.result.AutoSize = true;
-            this.result.Location = new System.Drawing.Point(112, 198);
+            this.result.Location = new System.Drawing.Point(226, 128);
             this.result.Name = "result";
-            this.result.Size = new System.Drawing.Size(0, 13);
+            this.result.Size = new System.Drawing.Size(24, 13);
             this.result.TabIndex = 10;
             // 
             // radioX
@@ -178,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 166);
+            this.ClientSize = new System.Drawing.Size(351, 202);
             this.Controls.Add(this.radio0);
             this.Controls.Add(this.radioX);
             this.Controls.Add(this.result);
