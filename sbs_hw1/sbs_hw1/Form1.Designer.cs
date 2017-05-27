@@ -41,6 +41,7 @@
             this.result = new System.Windows.Forms.Label();
             this.radioX = new System.Windows.Forms.RadioButton();
             this.radio0 = new System.Windows.Forms.RadioButton();
+            this.exception = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -148,7 +149,7 @@
             this.result.AutoSize = true;
             this.result.Location = new System.Drawing.Point(226, 128);
             this.result.Name = "result";
-            this.result.Size = new System.Drawing.Size(24, 13);
+            this.result.Size = new System.Drawing.Size(0, 13);
             this.result.TabIndex = 10;
             // 
             // radioX
@@ -174,11 +175,22 @@
             this.radio0.Text = "0";
             this.radio0.UseVisualStyleBackColor = true;
             // 
+            // exception
+            // 
+            this.exception.Location = new System.Drawing.Point(197, 167);
+            this.exception.Name = "exception";
+            this.exception.Size = new System.Drawing.Size(75, 23);
+            this.exception.TabIndex = 13;
+            this.exception.Text = "Exception";
+            this.exception.UseVisualStyleBackColor = true;
+            this.exception.Click += new System.EventHandler(this.exception_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(351, 202);
+            this.Controls.Add(this.exception);
             this.Controls.Add(this.radio0);
             this.Controls.Add(this.radioX);
             this.Controls.Add(this.result);
@@ -214,6 +226,7 @@
         private System.Windows.Forms.Label result;
         private System.Windows.Forms.RadioButton radioX;
         private System.Windows.Forms.RadioButton radio0;
+        private System.Windows.Forms.Button exception;
     }
 }
 

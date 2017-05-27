@@ -12,14 +12,25 @@ namespace sbs_hw1
 {
     public partial class Form1 : Form
     {
-        string user_sing = "0";
-        string ai_sing = "X";
-        int step_count = 9; // число пустых клеток
 
+        IActionXO game;
+        Dictionary<string, int[]> buttonsCoord;
         Button[,] buttons;
         public Form1()
         {
             InitializeComponent();
+            
+            buttonsCoord = new Dictionary<string, int[]>();
+            buttonsCoord.Add("button1", new int[]{ 0, 0});
+            buttonsCoord.Add("button2", new int[] { 0, 1 });
+            buttonsCoord.Add("button3", new int[] { 0, 2 });
+            buttonsCoord.Add("button6", new int[] { 1, 0 });
+            buttonsCoord.Add("button5", new int[] { 1, 1 });
+            buttonsCoord.Add("button4", new int[] { 1, 2 });
+            buttonsCoord.Add("button9", new int[] { 2, 0 });
+            buttonsCoord.Add("button8", new int[] { 2, 1 });
+            buttonsCoord.Add("button7", new int[] { 2, 2 });
+
             buttons = new Button[,] { { button1, button2, button3 }, { button6, button5, button4 }, { button9, button8, button7 } };
         }
 
@@ -28,69 +39,35 @@ namespace sbs_hw1
             Button btn = (Button)sender;
             if (btn.Text != "")
                 return;
-            step_count--;
-            btn.Text = user_sing;
+            int i = buttonsCoord[btn.Name][0];
+            int j = buttonsCoord[btn.Name][1];
+            game.userStep(i, j);
+            display();
             check();
-            ai_step();
+            game.aiStep();
+            display();
             check();
         }
 
-        private void ai_step()
+        void display()
         {
-           foreach(Button btn in buttons)
-            { 
-                if (btn.Text == "")
-                {
-                    btn.Text = ai_sing;
-                    break;
-                }
-            }
-            step_count--;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                    buttons[i, j].Text = game.Board[i, j];
         }
+
+     
 
         private void check()
         {
-            string sign = "";
-            // вертикально
-            for(int i = 0; i < buttons.GetLength(0); i++)
+            game.check();
+           if(game.status != "")
             {
-                if((buttons[i, 0].Text == buttons[i, 1].Text) && (buttons[i, 0].Text == buttons[i, 2].Text) && (buttons[i, 0].Text != ""))
-                    sign =  buttons[i, 0].Text;
-            }
-            // горизонтально
-            for (int i = 0; i < buttons.GetLength(1); i++)
-            {
-                if ((buttons[0, i].Text == buttons[1, i].Text) && (buttons[0, i].Text == buttons[2, i].Text) && (buttons[0, i].Text != ""))
-                    sign = buttons[0, i].Text;
-            }
-            // главная диагональ
-            if ((buttons[0, 0].Text == buttons[1, 1].Text) && (buttons[1, 1].Text == buttons[2, 2].Text) && (buttons[0, 0].Text != ""))
-                sign = buttons[0, 0].Text;
-            // побочная диагональ
-            if ((buttons[2, 0].Text == buttons[1, 1].Text) && (buttons[1, 1].Text == buttons[0, 2].Text) && (buttons[2, 0].Text != ""))
-                sign = buttons[2, 0].Text;
-            if (sign == user_sing)
-            {
-                result.Text = "Победа";
-                lock_board(false);
-            }
-            else if (sign == ai_sing)
-            {
-                result.Text = "Поражение";
-                lock_board(false);
-            }
-            else if (step_count == 0)
-            {
-                result.Text = "Ничья";
+                result.Text = game.status;
                 lock_board(false);
             }
         }
 
-        private void clear_board()
-        {
-            foreach (Button btn in buttons)
-                btn.Text = "";
-        }
 
         private void lock_board(bool val)
         {
@@ -100,20 +77,32 @@ namespace sbs_hw1
 
         private void button10_Click(object sender, EventArgs e)
         {
-            clear_board();
-            step_count = 9;
             lock_board(true);
             result.Text = "";
+            string userSign, aiSign;
             if (radio0.Checked) {
-                user_sing = "0";
-                ai_sing = "X";
+                userSign = "0";
+                aiSign = "X";
             }
             else
             {
-                user_sing = "X";
-                ai_sing = "0";
+                userSign = "X";
+                aiSign = "0";
             }
+            game = new GameLogic(aiSign, userSign);
+            display();
         }
 
+        private void exception_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                game.userStep(5, 5);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
