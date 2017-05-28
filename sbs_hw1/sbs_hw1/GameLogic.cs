@@ -20,12 +20,15 @@ namespace sbs_hw1
         {
             get;
         }
-       
+        void saveStats();
 
+        List<Stats> getStats();
+        double getAvgWin();
     }
 
     class GameLogic : IActionXO
     {
+        GameStats gameStats;
         public string status { get; private set; }
         IBoard board;
         public string[,] Board
@@ -34,11 +37,13 @@ namespace sbs_hw1
         }
         int emptyCell;
         string userSign;
+        int numUserSteps;
         string aiSign;
 
         public GameLogic(string _aiSign, string _userSign)
         {
-            board = new Board(); 
+            board = new Board();
+            gameStats = new GameStats();
             userSign = _userSign;
             aiSign = _aiSign;
             clear_board();
@@ -50,6 +55,7 @@ namespace sbs_hw1
         {
             board[i, j] = userSign;
             emptyCell--;
+            numUserSteps++;
         }
         private void clear_board()
         {
@@ -98,16 +104,32 @@ namespace sbs_hw1
             
             if (sign == userSign)
             {
-                status = "победа";
+                status = "Победа";
             }
             else if (sign == aiSign)
             {
-                status = "поражение";
+                status = "Поражение";
             }
             else if (emptyCell == 0)
             {
                 status = "Ничья";
             }
+        }
+
+        public void saveStats()
+        {
+            gameStats.add(status, userSign, numUserSteps);
+        }
+
+        public List<Stats> getStats()
+        {
+            gameStats.getAllStats();
+            return gameStats.listStats;
+        }
+
+        public double getAvgWin()
+        {
+            return gameStats.getAvgWin();
         }
     }
 }

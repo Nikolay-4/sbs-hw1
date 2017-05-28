@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace sbs_hw1
 {
     public partial class Form1 : Form
@@ -16,6 +17,7 @@ namespace sbs_hw1
         IActionXO game;
         Dictionary<string, int[]> buttonsCoord;
         Button[,] buttons;
+        bool gameOver = true;
         public Form1()
         {
             InitializeComponent();
@@ -61,9 +63,11 @@ namespace sbs_hw1
         private void check()
         {
             game.check();
-           if(game.status != "")
+           if(game.status != "" && !gameOver)
             {
                 result.Text = game.status;
+                gameOver = true;
+                game.saveStats();
                 lock_board(false);
             }
         }
@@ -79,6 +83,7 @@ namespace sbs_hw1
         {
             lock_board(true);
             result.Text = "";
+            gameOver = false;
             string userSign, aiSign;
             if (radio0.Checked) {
                 userSign = "0";
@@ -90,6 +95,7 @@ namespace sbs_hw1
                 aiSign = "0";
             }
             game = new GameLogic(aiSign, userSign);
+            btnStats.Enabled = true;
             display();
         }
 
@@ -103,6 +109,17 @@ namespace sbs_hw1
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            Form2 statsForm = new Form2();
+            var data = game.getStats();
+            statsForm.winRate.Text = game.getAvgWin().ToString("0.00") + " %";
+            statsForm.dataGridView1.DataSource = data;
+            statsForm.Show();
+
+            
         }
     }
 }

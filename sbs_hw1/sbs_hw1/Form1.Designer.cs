@@ -42,6 +42,7 @@
             this.radioX = new System.Windows.Forms.RadioButton();
             this.radio0 = new System.Windows.Forms.RadioButton();
             this.exception = new System.Windows.Forms.Button();
+            this.btnStats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -177,7 +178,7 @@
             // 
             // exception
             // 
-            this.exception.Location = new System.Drawing.Point(197, 167);
+            this.exception.Location = new System.Drawing.Point(12, 167);
             this.exception.Name = "exception";
             this.exception.Size = new System.Drawing.Size(75, 23);
             this.exception.TabIndex = 13;
@@ -185,11 +186,23 @@
             this.exception.UseVisualStyleBackColor = true;
             this.exception.Click += new System.EventHandler(this.exception_Click);
             // 
+            // btnStats
+            // 
+            this.btnStats.Enabled = false;
+            this.btnStats.Location = new System.Drawing.Point(197, 167);
+            this.btnStats.Name = "btnStats";
+            this.btnStats.Size = new System.Drawing.Size(75, 23);
+            this.btnStats.TabIndex = 14;
+            this.btnStats.Text = "Stats";
+            this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(351, 202);
+            this.Controls.Add(this.btnStats);
             this.Controls.Add(this.exception);
             this.Controls.Add(this.radio0);
             this.Controls.Add(this.radioX);
@@ -227,6 +240,7 @@
         private System.Windows.Forms.RadioButton radioX;
         private System.Windows.Forms.RadioButton radio0;
         private System.Windows.Forms.Button exception;
+        private System.Windows.Forms.Button btnStats;
     }
 }
 
