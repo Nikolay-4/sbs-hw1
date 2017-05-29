@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 
+
 namespace sbs_hw1
 {
-    class Stats{
+    /*class Stats{
         public DateTime date { get; set; }
         public string result { get; set; }
         public string userSign { get; set; }
@@ -20,41 +21,38 @@ namespace sbs_hw1
             userSign = _userSign;
             userSteps = _userSteps;
         }
-    }
+    }*/
 
-    class GameStats
+    public class GameStats
     {
-        string jsonPath = @"E:\stats.json";
+
+        GameStatsModelContainer context;
 
         public List<Stats> listStats;
         
         public GameStats()
         {
             listStats = new List<Stats>();
+            context = new GameStatsModelContainer();
         }
 
         public void add(string _res, string _userSign, int _userSteps)
         {
-            getAllStats();
             
-            Stats st = new Stats(DateTime.Now, _res, _userSign, _userSteps);
-            listStats.Add(st);
-            using (StreamWriter ws = new StreamWriter(jsonPath))
-            using (JsonWriter write = new JsonTextWriter(ws))
-            {
-                string json = JsonConvert.SerializeObject(listStats, Formatting.Indented);
-                ws.Write(json);
-            }
+            Stats st = new Stats();
+            st.date = DateTime.Now;
+            st.result = _res;
+            st.userSign = _userSign;
+            st.userSteps = _userSteps;
+            //listStats.Add(st);
+            context.StatsSet.Add(st);
+            context.SaveChanges();
         }
 
+        
         public void getAllStats()
         {
-            using(StreamReader rs = new StreamReader(jsonPath))
-            {                
-                string json = rs.ReadToEnd();
-                List<Stats> listStats_t = JsonConvert.DeserializeObject<List<Stats>>(json);
-                listStats = listStats_t != null ? listStats_t : listStats;
-            }
+            listStats = context.StatsSet.ToList<Stats>();
         }
 
         public double getAvgWin()

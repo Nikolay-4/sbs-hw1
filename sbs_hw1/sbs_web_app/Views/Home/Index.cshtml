@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
@@ -18,7 +17,7 @@
             </tr>
         </thead>
 
-        @foreach (sbs_web_app.Models.Stats a in ViewBag.listStats)
+        @foreach (var a in ViewBag.listStats)
         {
             <tr>
                 <td>@a.date</td>

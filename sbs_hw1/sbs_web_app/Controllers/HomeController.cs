@@ -6,15 +6,16 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.IO;
 using sbs_web_app.Models;
+using sbs_hw1;
 
 namespace sbs_web_app.Controllers
 {
     public class HomeController : Controller
     {
-        GameStats stats;
+        sbs_hw1.GameStats stats;
         public ActionResult Index()
         {
-            stats = new GameStats();
+            stats = new sbs_hw1.GameStats();
             stats.getAllStats();
             Stats[] arr = new Stats[stats.listStats.Count];
             stats.listStats.CopyTo(arr);
@@ -25,19 +26,5 @@ namespace sbs_web_app.Controllers
         }
 
         
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
