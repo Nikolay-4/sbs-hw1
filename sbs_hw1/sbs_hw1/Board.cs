@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sbs_hw1
 {
-    interface IBoard
+    public interface IBoard
     {
         string[,] board { get;}
         string this[int i, int j] { get;  set; }

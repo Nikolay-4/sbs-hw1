@@ -26,7 +26,7 @@ namespace sbs_hw1
         double getAvgWin();
     }
 
-    class GameLogic : IActionXO
+    public class GameLogic : IActionXO
     {
         GameStats gameStats;
         public string status { get; private set; }
@@ -35,7 +35,7 @@ namespace sbs_hw1
         {
             get { return board.board; }
         }
-        int emptyCell;
+        public int emptyCell;
         string userSign;
         int numUserSteps;
         string aiSign;
@@ -51,12 +51,27 @@ namespace sbs_hw1
             status = "";
         }
 
+        ///<summary>
+        ///For tests
+        ///</summary>
+        public GameLogic(IBoard _board, string _aiSign, string _userSign)
+        {
+            board = _board;
+            gameStats = new GameStats();
+            userSign = _userSign;
+            aiSign = _aiSign;
+            emptyCell = 9;
+            status = "";
+        }
+
+
         public void userStep(int i, int j)
         {
             board[i, j] = userSign;
             emptyCell--;
             numUserSteps++;
         }
+
         private void clear_board()
         {
             for (int i = 0; i < 3; i++)

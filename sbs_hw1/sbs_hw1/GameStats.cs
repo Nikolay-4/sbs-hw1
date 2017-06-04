@@ -9,19 +9,6 @@ using System.IO;
 
 namespace sbs_hw1
 {
-    /*class Stats{
-        public DateTime date { get; set; }
-        public string result { get; set; }
-        public string userSign { get; set; }
-        public int userSteps { get; set; }
-        public Stats(DateTime _date, string _result, string _userSign, int _userSteps)
-        {
-            date = _date;
-            result = _result;
-            userSign = _userSign;
-            userSteps = _userSteps;
-        }
-    }*/
 
     public class GameStats
     {
